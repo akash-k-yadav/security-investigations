@@ -5,10 +5,10 @@
 - **Author** :- Brad Duncan
 
 ## Background 
-- Someone contact Soc team and report a coworker accidentally download a suspicious file after seaching google authenticator.
-- Based on caller initial information , it was confirmed there was a infection.
-- Traffic associated with suspicious event has been retrieved
-- And now job is write incident report 
+- Someone contacted the SOC team and reported that a coworker had accidentally downloaded a suspicious file after searching for Google Authenticator.
+- Based on the caller's initial information, it was confirmed there was an infection.
+- Traffic associated with the suspicious event was retrieved.
+- The job is to write an incident report based on this traffic.
 
 ## LAN segment detail given by blog
 - **LAN segment range** :- 10.1.17[.]0/24 
@@ -27,6 +27,4 @@
 - What are the IP addresses used for C2 servers for this infection?
 
 ### Note
-- capture pcap and exercise own and publish by **Brad Duncan** on his blog website `malware-traffic-analysis.net` 
-- i am using pcap and exercise given to learn and pratice traffic analyis. 
-- even though author mention tasks for this exercise , i try to do complete analysis.
+-
