@@ -41,7 +41,7 @@
 | 19:46 | Scriptlet triggers hidden PowerShell to download 29842.ps1 and four additional files from C2 |
 | 19:47 | Five malicious files downloaded from C2 via HTTP |
 | 19:47 | TeamViewer.exe, TV.dll, and TeamViewer_Resource_fr.dll delivered. DLL sideloading, likely persistence/remote access mechanism |
-| 19:47 | Startup shortcut creation self reported by beacon in its C2 callback message, not independently verified |
+| 19:47 | pas.ps1 executed: downloads TeamViewer.exe, TV.dll, TeamViewer_Resource_fr.dll, and creates Startup shortcut to TeamViewer.exe (persistence confirmed via decoded script) |
 | 19:53 | SAMR enumeration performed against domain controller |
 | 19:56 | SYSVOL accessed via SMB, Group Policy files enumerated |
 | 19:59 | C2 beaconing confirmed, HTTP GET every 5 seconds |
