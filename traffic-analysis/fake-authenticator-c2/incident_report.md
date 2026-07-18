@@ -10,7 +10,7 @@
 - User shutchenson searched for Google Authenticator and reached a site impersonating it (google-authenticator[.]burleson-appliance.net). The mechanism that led the user to this specific site is not confirmed from the capture.
 - A DNS query to a second domain (authenticatoor[.]org) one second later suggests a redirect between the two impersonation domains, but this is based on timing correlation only, not independently confirmed.
 - The malicious site delivered a scriptlet that triggered PowerShell to download and execute a beacon script from a C2 server.
-- The host established recurring HTTP beaconing to the C2 server (5.252.153[.]241) every 5 seconds and downloaded five files, including two PowerShell scripts and a trojanized TeamViewer package (legitimate exe + malicious DLL). This looks like DLL sideloading, likely meant to give persistent remote access.
+- The host established recurring HTTP beaconing to the C2 server (5.252.153[.]241) every 5 seconds and downloaded five files, including two PowerShell scripts and a trojanized TeamViewer package (legitimate exe + malicious DLL). A second script (pas.ps1) confirmed this was used to establish persistence via a Startup folder shortcut, consistent with DLL sideloading.
 - Post-compromise, the host performed SAMR enumeration and accessed the domain controller's SYSVOL share, reading Group Policy files. This is consistent with domain reconnaissance, possibly credential hunting through Group Policy Preferences.
 - Two additional IPs seen in related activity could not be confirmed as C2 infrastructure since that traffic was encrypted (TLS) and no decryption key was available.
 
@@ -28,6 +28,7 @@
 | C2 server IP | 5.252.153[.]241 | Confirmed |
 | Additional suspected C2 IPs | 2 unidentified | Unconfirmed, traffic encrypted, no decryptor available |
 | Files delivered by C2 | pas.ps1, 29842.ps1, TeamViewer.exe, TeamViewer_Resource_fr.dll, TV.dll | Confirmed |
+| Persistence mechanism | Startup shortcut to TeamViewer.exe, created by pas.ps1 | Confirmed |
 
 ---
 
@@ -53,7 +54,7 @@
 - **Initial Access:** Host reached a site impersonating Google Authenticator. How the user got to this specific site is not confirmed. Timing suggests a possible redirect to a second impersonation domain.
 - **Execution:** A delivered scriptlet triggered hidden PowerShell, which downloaded and ran a beacon script.
 - **Command and Control:** HTTP based beaconing to 5.252.153[.]241 every 5 seconds. C2 sent further file delivery through this channel.
-- **Persistence / Additional Payload:** Trojanized TeamViewer components (legit exe + malicious DLL) delivered. DLL sideloading, likely meant to set up persistent remote access.
+- **Persistence:** A second script (pas.ps1) downloaded a trojanized TeamViewer package and created a Startup folder shortcut to TeamViewer.exe. Consistent with DLL sideloading, confirmed via decoded script logic.
 - **Discovery:** SAMR enumeration and SYSVOL/GPO file access via SMB, consistent with domain reconnaissance.
 
 ---
@@ -89,3 +90,4 @@ Reimage the affected host (DESKTOP-L8C5GJ) and reset credentials for the user ac
 - The redirect between the two impersonation domains is based on DNS query timing only, not independently confirmed.
 - Two additional IPs seen in related activity could not be confirmed as C2 infrastructure due to TLS encryption with no available decryption key.
 - The SMB authentication method (NTLM vs Kerberos) used to access the domain controller was not determined.
+- The actual binary contents of TeamViewer.exe, TV.dll, and TeamViewer_Resource_fr.dll were not extracted or reverse engineered. Decoding these binaries would require deeper malware analysis than the scope of this investigation, so conclusions about them (DLL sideloading, persistence) rely on file naming, VirusTotal detections, and the pas.ps1 script logic, not direct binary analysis.
