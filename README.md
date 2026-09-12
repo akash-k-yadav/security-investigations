@@ -11,6 +11,12 @@ security-investigation/
 │       ├── incident_report.md     # Summary what happened
 │       ├── investigation_writeup.md  # Full methodology and evidence
 │       └── snapshots/             # Supporting screenshots
+├── phishing-analysis/
+│   └── [investigation-name]/
+│       ├── background.md
+│       ├── incident_report.md
+│       ├── investigation_writeup.md
+│       └── snapshots/
 ```
 ## How each investigation is documented
 
