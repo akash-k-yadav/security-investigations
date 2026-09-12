@@ -25,6 +25,3 @@
 - What is the user account name from the infected Windows client?
 - What is the likely domain name for the fake Google Authenticator page?
 - What are the IP addresses used for C2 servers for this infection?
-
-### Note
--
