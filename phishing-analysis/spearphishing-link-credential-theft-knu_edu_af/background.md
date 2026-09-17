@@ -1,4 +1,4 @@
-# Spearphishing Link Credential Theft knu.edu.com
+# Spearphishing Link Credential Theft knu.edu.af
 
 ## Source :- MALWARE-TRAFFIC-ANALYSIS.NET
 - **Uri** :- `https://www.malware-traffic-analysis.net/2020/05/05/index.html`
