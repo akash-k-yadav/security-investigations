@@ -1,4 +1,4 @@
-# INCIDENT REPORT: Spearphishing Link Credential Theft knu.edu.com
+# INCIDENT REPORT: Spearphishing Link Credential Theft knu.edu.af
 
 - **Date of Analysis:** 25-07-2026
 - **Source:** `www.malware-traffic-analysis.net`
