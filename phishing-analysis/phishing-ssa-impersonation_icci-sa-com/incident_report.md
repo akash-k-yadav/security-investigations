@@ -9,7 +9,7 @@
 ## Summary
 - An employee in the organization received an email from the allsecured[.]net domain impersonating the Social Security Administration. The email contained a hyperlink claiming to link to a social security statement download.
 - Upon further investigation it was confirmed the email was spoofed, and the hyperlink contained in the email redirected to a completely different domain.
-- Both the sender domain and the domain in the hyperlink are legitimate domains. The sender's domain (allsecured[.]net) is owned by a company that provides security services and is based in Ohio, USA. The redirected domain (icci-sa[.]com) belonged to a construction business based in France. The domain is no longer in active use, making it a good target for adversaries to repurpose for their campaign.
+- Both the sender domain and the domain in the hyperlink are legitimate domains. The sender's domain (allsecured[.]net) is owned by a company that provides security services and is based in Ohio, USA. The redirected domain (icci-sa[.]com) belonged to a construction business based in France.
 - The user interacted with the link in the email body and downloaded content of approximately 13 MB. What was actually downloaded is not confirmed, due to the traffic being encrypted.
 - A DNS query for check.screenconnect[.]com was observed, followed by a DNS query for instance-udppxf-relay.screenconnect[.]com. A network outbound connection was then observed to the IP resolved from the second query (15.204.43[.]235). VirusTotal shows 0/89 detections for this IP; a community comment from 8 months prior describes a similar chain (phishing → fake download → abuse of old ScreenConnect → RAT), consistent with the pattern observed here. This is unconfirmed, based on a single anonymous submission.
 
@@ -46,9 +46,9 @@
 - **Tactic:** Initial Access (TA0001)
 - **Technique:** T1566 - Phishing
 - **Sub-technique:** T1566.002 - Spearphishing Link
+- **Tactic:** Execution (TA0002)
 - **Technique:** T1204 - User Execution
 - **Sub-technique:** T1204.001 - Malicious Link
-- **Technique:** T1219 - Remote Access Software
 
 ---
 
@@ -58,7 +58,7 @@
 |---|---|---|---|
 | https[:]//t[.]co/LPz3zzwREa | URL | Hyperlink in phishing email body, Twitter/X URL shortener used to obfuscate the actual redirect destination | Confirmed |
 | 23.227.202[.]93 | IP | Email sender IP | Confirmed |
-| https[:]//icci-sa[.]com/xgov/ | URL | Redirect target from shortlink, abandoned legitimate domain repurposed for campaign | Confirmed |
+| https[:]//icci-sa[.]com/xgov/ | URL | Redirect target from shortlink | Confirmed |
 | 15.204.43[.]235 | IP | Outbound connection target, resolved from instance-udppxf-relay.screenconnect[.]com, 0/89 VT detections | Confirmed |
 
 ---
