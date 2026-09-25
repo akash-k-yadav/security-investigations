@@ -1,4 +1,4 @@
-# INCIDENT REPORT: Spearphishing Link Credential Theft knu.edu.af
+# INCIDENT REPORT: Phishing Email Impersonating SSA, Redirect to icci-sa.com
 
 - **Date of Analysis:** 24-09-2026
 - **Source:** `www.malware-traffic-analysis.net`
