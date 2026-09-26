@@ -19,7 +19,7 @@
 
 | Question | Answer | Confidence |
 |---|---|---|
-| Host machine IP | 10.5.5[.]101 | Confirmed |
+| Host machine IP | 10.9.14[.]101 | Confirmed |
 | Host machine MAC | 00:08:02:1c:47:ae | Confirmed |
 | Hostname | Not recoverable from this capture | Unconfirmed |
 | Sender Domain | `allsecured[.]net`, **Spoofed** | Confirmed |
