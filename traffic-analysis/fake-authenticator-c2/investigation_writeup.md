@@ -49,7 +49,7 @@ This is a lightweight PowerShell-based C2 beacon: it gives the C2 operator the a
 
 ### Step 5: Extracting and Decoding the Persistence Script (pas.ps1)
 `pas.ps1`, delivered by the C2 shortly after the beacon script, was also decoded. This script:
-- Downloads four files (TeamViewer.exe, TV.dll, TeamViewer_Resource_fr.dll, and pas.ps1 itself) into `C:\ProgramData\huo\`.
+- Downloads four files (TeamViewer.exe, TV.dll, Teamviewer_Resource_fr.dll, and pas.ps1 itself) into `C:\ProgramData\huo\`.
 - Calls a `Create-Shortcut` function to place a `.lnk` file pointing to `TeamViewer.exe` in the current user's Startup folder.
 - Returns a success message (`'startup shortcut created'`) once complete, which is sent back to the C2 via a follow-up HTTP request.
 
@@ -64,7 +64,7 @@ All five files delivered by the C2 were hashed and checked against VirusTotal:
 | pas.ps1 | 28/60 | Same family/behavior as above |
 | TeamViewer.exe | 0/67 | Undetected; VirusTotal tags: signed, invalid-signature, revoked-cert |
 | TV.dll | 45/70 | Flagged as trojan.doina/dlloader |
-| TeamViewer_Resource_fr.dll | 0/67 | Undetected |
+| Teamviewer_Resource_fr.dll | 0/67 | Undetected |
 
 The pairing of a signed TeamViewer.exe (invalid signature, revoked certificate) with a flagged TV.dll is consistent with DLL sideloading, where a legitimate executable loads a malicious DLL placed alongside it. This was not confirmed, as the binaries were not analysed.
 
@@ -76,6 +76,7 @@ Following the file delivery, the infected host initiated SMB sessions to the dom
 The narrow, single-user-scoped SAMR calls combined with the exact CSE file pattern are consistent with routine Group Policy processing, not manual enumeration. This activity occurred 6 to 8 minutes after the persistence script completed, which is a coincidence worth noting but not something the pattern itself supports as attacker-driven. This is treated as a dead end for this investigation.
 
 ---
+
 ## Raw Traffic Timeline
 
 - 19:45:34, DNS query to google-authenticator[.]burleson-appliance.net
@@ -105,6 +106,23 @@ The narrow, single-user-scoped SAMR calls combined with the exact CSE file patte
 - 19:47:05, 10.1.17[.]215 --> 5.252.153[.]241, HTTP GET /1517096937?k=message%20=%20startup%20shortcut%20created;%20%20status%20=%20success;
 - 19:47:05, 5.252.153[.]241 --> 10.1.17[.]215, HTTP/1.1 404 Not Found
 
+### SMB Activity: 19:53:39 to 20:06:17
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Session Setup Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Tree Connect Request \\WIN-GSH54QLW48D.bluemoontuesday.com\IPC$
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, EnumDomain Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, LookupDomain Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, OpenDomain Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, LookupNames Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, OpenUser Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, GetGroupsForUser Request
+- 19:53:39, 10.1.17[.]215 --> 10.1.17[.]2, SMB, GetAliasMemberships Request
+
+- 19:56:00, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Session Setup Request
+- 19:56:00, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Tree Connect \\WIN-GSH54QLW48D.bluemoontuesday.com\IPC$
+- 19:56:02, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Tree Connect \\WIN-GSH54QLW48D.bluemoontuesday.com\SYSVOL
+- 19:56:02, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Read bluemoontuesday.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\gpt.ini
+- 19:56:02, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Read bluemoontuesday.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Microsoft\Windows NT\SecEdit\GptTmpl.inf
+- 19:56:02, 10.1.17[.]215 --> 10.1.17[.]2, SMB, Read bluemoontuesday.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine\Registry.pol
 
 ### Third Conversation with C2 Server: 19:55:07 to 20:38:18
 - HTTP GET /1517096937 requests from the infected host to the C2 server, about every 5 seconds (499 requests between 19:55:07 and 20:38:18, median interval 5.2 seconds).
@@ -145,6 +163,8 @@ The narrow, single-user-scoped SAMR calls combined with the exact CSE file patte
 ![Virus Total Score for File pas.ps1](/traffic-analysis/fake-authenticator-c2/snapshots/pas_ps1_virus_total.png)
 ### Virus Total Score for file 29842.ps1
 ![Virus Total Score for File 29842.ps1](/traffic-analysis/fake-authenticator-c2/snapshots/29842_psi_virus_total.png)
+### Virus Total Score for IP 5.252.153[.]241
+![Virus Total Score for IP 5.252.153[.]241](/traffic-analysis/fake-authenticator-c2/snapshots/5-252-153-241_vtscore.png)
 
 ---
 
