@@ -6,7 +6,7 @@
 ---
 
 ## Summary
-- On 2024-08-15 at 00:10:58 UTC, the host `DESKTOP-H8ALZBV` (10.8.15[.]133, user account `plucero`) connected to the suspicious domain `quote.checkfedexexp[.]com` and downloaded a supicious invoice-named zip file (2,767,804 bytes).
+- On 2024-08-15 at 00:10:58 UTC, the host `DESKTOP-H8ALZBV` (10.8.15[.]133, user account `plucero`) connected to the suspicious domain `quote.checkfedexexp[.]com` and downloaded a suspicious invoice-named zip file (2,767,804 bytes).
 - The zip file contains an obfuscated JavaScript (JS) file filled with junk code.
   - The JS file contains a URL on `business.checkfedexexp[.]com`, a different subdomain of the same suspicious parent domain.
   - About 20 seconds after the zip download, the host connected to `business.checkfedexexp[.]com`. The connection was encrypted, so the traffic could not be analyzed.
@@ -15,7 +15,7 @@
   - VirusTotal labels the DLL with the WarmCookie family, and it matches WarmCookie YARA rules.
   - Three HTTP POST requests were then sent to the same IP with 124, 305,148 and 732 bytes of data. The data was encoded or encrypted, so its content is unknown.
   - 302 HTTP GET requests followed at intervals of about 3 to 9 seconds, with one 52.6 second gap, consistent with C2 beaconing.
-
+650
 ---
 
 ## Key Findings
@@ -42,7 +42,7 @@
 | 2024-08-15 00:10:58 | Outbound connection to `quote.checkfedexexp[.]com` |
 | 2024-08-15 00:11:04 | Malicious zip file containing the JS file was downloaded |
 | 2024-08-15 00:11:23 | DNS query for `business.checkfedexexp[.]com` |
-| 2024-08-15 00:11:24 to 00:11:52 | Outbound connection to `business.checkfedexexp[.]com`, about 1.4 MB received and 650 KB sent, content unknown due to encryption |
+| 2024-08-15 00:11:24 to 00:11:52 | Outbound connection to `business.checkfedexexp[.]com`, about 1.4 MB received and 650 bytes sent, content unknown due to encryption |
 | 2024-08-15 00:11:59 | HTTP HEAD request for the DLL |
 | 2024-08-15 00:12:00 | Malicious DLL downloaded |
 | 2024-08-15 00:13:00 | HTTP GET request to the C2 |
