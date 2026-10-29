@@ -17,6 +17,12 @@ security-investigation/
 │       ├── incident_report.md
 │       ├── investigation_writeup.md
 │       └── snapshots/
+├── log-analysis/
+│   └── [investigation-name]/
+│       ├── background.md
+│       ├── incident_report.md
+│       ├── investigation_writeup.md
+│       └── snapshots/
 ```
 ## How each investigation is documented
 
